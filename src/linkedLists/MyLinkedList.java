@@ -1,5 +1,7 @@
 package linkedLists;
 
+import linkedLists.StackImplemenation;
+
 public class MyLinkedList {
 	
 	private Node head = null;
@@ -93,7 +95,7 @@ public class MyLinkedList {
 	}
 	
 	//Insert a node at nth position
-	public void InsertNth(Node head, int data, int position) {
+	public void insertNth(Node head, int data, int position) {
 		   // This is a "method-only" submission. 
 		    // You only need to complete this method.
 		    Node tmp = head;
@@ -119,7 +121,7 @@ public class MyLinkedList {
 		}
 	
 	// reverse the linked list
-	public void Reverse(Node head) {
+	public void reverse(Node head) {
 	    Node curr = head;
 	    Node prev = null;
 	    Node next = null;
@@ -137,6 +139,51 @@ public class MyLinkedList {
 	    curr.setNext(prev);
 	    this.head = curr;
 	    return;
+	}
+	
+	
+	/*bring odd numbers in front
+	input: 1->4->6->5->7->8->Null
+	output: 1->5->7->4->6->8->Null*/
+	public void oddEven(Node head) throws Exception{
+		StackImplemenation stack = new StackImplemenation(100);
+		Node curr = head;
+		Node prev = null;
+		Node next = null;
+			
+	
+		if(curr == null || curr.getNext() == null){
+			return;
+		}else {
+			while(curr != null){
+				next = curr.getNext();
+				if(curr == this.head){
+					if(curr.getData()%2 != 0){
+						this.head = next;
+						stack.push(curr.getData());
+						curr = next;
+					}else{
+						prev = curr;
+						curr = next;
+					}
+				}else{
+					if(curr.getData()%2 != 0 ){
+							prev.setNext(curr.getNext());
+							stack.push(curr.getData());
+							curr = next;
+					}else{
+						prev = curr;
+						curr = next;
+					}
+				}
+				
+			}
+			
+			while(!stack.isStackEmpty()){
+				addNodeStart(stack.pop());
+			}
+			
+		}
 	}
 
 
