@@ -1,0 +1,5 @@
+*.classpath
+*.prefs
+bin/linkedLists/LinkListTest.class
+*.class
+.project
