@@ -11,7 +11,7 @@ public class MyLinkedList {
 	public void traverse(){
 		Node tmp = head;
 		while(tmp != null){
-			System.out.print(tmp.getData()+" ");
+			System.out.print(tmp.getData()+" => ");
 			tmp = tmp.getNext();
 			if(tmp == null){
 				break;
@@ -184,6 +184,67 @@ public class MyLinkedList {
 			}
 			
 		}
+	}
+	
+	public void sort(Node head){
+		Node prev1 = null, prev2 = null;
+		Node curr1 = head, curr2 = head;
+		Node minNode = null;
+		Node minPrev = null;
+		int min = Integer.MAX_VALUE;
+		
+		if(curr1 == null){
+			return;
+		}
+		
+		while(curr1 != null){
+			traverse();
+			
+			System.out.println((prev1 != null) ? prev1.getData() : prev1);
+			System.out.println((prev2 != null) ? prev2.getData() : prev2);
+			System.out.println((curr2 != null) ? curr2.getData() : curr2);
+			System.out.println((curr1 != null) ? curr1.getData() : curr1);
+			while(curr2 != null){
+				if(curr2.getData() < min){
+					min = curr2.getData();
+					minPrev = prev2;
+					minNode = curr2;
+				}
+				prev2 = curr2;
+				curr2 = curr2.getNext();
+			}
+			swap(prev1, curr1, minPrev, minNode);
+			prev1 = minNode;
+			prev2 = minNode;
+			curr1 = prev1.getNext();
+			curr2 = prev2.getNext();
+			min = Integer.MAX_VALUE;
+			
+		}
+		
+	}
+	
+	private void swap (Node prev1, Node node1, Node prev2, Node node2){
+		//if either of the nodes is not present
+		if((node1 == null) || (node2 == null)){
+			return;
+		}
+		//if 1st node is not head of linked list
+		if(prev1 != null){
+			prev1.setNext(node2);
+		}else{ //if 1st node is head, make 2nd node as head
+			this.head = node2;
+		}
+		//if 2nd node is not head of linked list
+		if(prev2 != null){
+			prev2.setNext(node1);
+		}else{	//if 2nd node is head, make 1st node as head
+			this.head = node1;
+		}
+		
+		Node temp = node1.getNext();
+		node1.setNext(node2.getNext());
+		node2.setNext(temp);
 	}
 
 
